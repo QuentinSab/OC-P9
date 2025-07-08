@@ -1,0 +1,32 @@
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+    padding: 40px;
+}
+
+.content section {
+    flex: 1;
+    max-width: 400px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    color: black;
+    background-color: white;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}

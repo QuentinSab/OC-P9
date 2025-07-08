@@ -1,8 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
-<P>
-    Vous êtes connecté.
-</P>
+    <a href="{% url 'create_ticket' %}">Demander une critique</a>
+    <a href="{% url 'create_review' 2 %}">Créer une critique</a>
 
 {% endblock content %}

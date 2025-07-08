@@ -1,11 +1,13 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'authentication/signup.css' %}">
+{% endblock %}
+
 {% block content %}
 
-    <h1>Inscription</h1>
-
-    {% if form.errors %}
-        {{ form.errors }}
-    {% endif %}
+    <h2>Inscrivez-vous</h2>
 
     <form method="post">
         {{ form.as_p }}

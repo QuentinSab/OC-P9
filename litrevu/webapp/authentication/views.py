@@ -1,5 +1,3 @@
-from django.shortcuts import render
-
 from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import redirect, render
 from django.conf import settings
