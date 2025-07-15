@@ -1,26 +1,58 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'reviews/follow.css' %}">
+{% endblock %}
+
 {% block content %}
+    <div class="follow-content">
 
-    <h2>Suivre d'autres utilisateurs</h2>
+        <h2>Suivre d'autres utilisateurs</h2>
 
-    <form method="post">
-        {% csrf_token %}
-        {{ form.followed_user.label_tag }}
-        {{ form.followed_user }}
+        <form method="post">
+            {% csrf_token %}
+            {{ form.followed_user.label_tag }}
+            {{ form.followed_user }}
 
-        {% if form.followed_user.errors %}
+            {% if form.followed_user.errors %}
+                <div>
+                    {{ form.followed_user.errors }}
+                </div>
+            {% endif %}
+
+            <button type="submit">Envoyer</button>
+        </form>
+
+        {% if form.non_field_errors %}
             <div>
-                {{ form.followed_user.errors }}
+                {{ form.non_field_errors }}
             </div>
         {% endif %}
 
-        <button type="submit">Envoyer</button>
-    </form>
+        <h2>Abonnements</h2>
+        <ul>
+            {% for relation in following %}
+                <li>
+                    {{ relation.followed_user.username }}
+                    <form method="post" action="{% url 'unfollow' relation.followed_user.id %}">
+                        {% csrf_token %}
+                        <button type="submit">Désabonner</button>
+                    </form>
+                </li>
+            {% empty %}
+                <li>Vous ne suivez personne.</li>
+            {% endfor %}
+        </ul>
 
-    {% if form.non_field_errors %}
-        <div>
-            {{ form.non_field_errors }}
-        </div>
-    {% endif %}
+        <h2>Abonnés</h2>
+        <ul>
+            {% for relation in followers %}
+                <li>{{ relation.user.username }}</li>
+            {% empty %}
+                <li>Personne ne vous suit encore.</li>
+            {% endfor %}
+        </ul>
 
+    </div>
 {% endblock %}

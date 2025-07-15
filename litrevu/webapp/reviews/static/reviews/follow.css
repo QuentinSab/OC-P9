@@ -1,0 +1,59 @@
+.content {
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+}
+
+.follow-content {
+    max-width: 800px;
+    width: 100%;
+    padding: 30px;
+    border: 1px solid #ccc;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+input{
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+button {
+    align-self: center;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: white;
+    color: black;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #5086d3;
+    color: white;
+}
+
+ul {
+    padding-left: 0;
+}
+
+li{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+}

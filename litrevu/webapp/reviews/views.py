@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from reviews import forms
 
 from django.contrib.auth.decorators import login_required
-from reviews.models import Ticket
+from reviews.models import Ticket, UserFollows
 
 
 @login_required
@@ -77,8 +77,22 @@ def follow(request):
 
         if form.is_valid():
             form.save()
-            return redirect('follow')
+            return redirect("follow")
     else:
         form = forms.FollowForm(user=request.user)
 
-    return render(request, 'reviews/follow.html', {'form': form})
+    following = UserFollows.objects.filter(user=request.user)
+    followers = UserFollows.objects.filter(followed_user=request.user)
+
+    return render(request, "reviews/follow.html", {
+        "form": form,
+        "following": following,
+        "followers": followers,
+    })
+
+
+@login_required
+def unfollow(request, followed_user_id):
+    relation = get_object_or_404(UserFollows, user=request.user, followed_user_id=followed_user_id)
+    relation.delete()
+    return redirect("follow")
