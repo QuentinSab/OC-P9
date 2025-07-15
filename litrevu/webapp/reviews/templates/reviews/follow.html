@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <h2>Suivre d'autres utilisateurs</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.followed_user.label_tag }}
+        {{ form.followed_user }}
+
+        {% if form.followed_user.errors %}
+            <div>
+                {{ form.followed_user.errors }}
+            </div>
+        {% endif %}
+
+        <button type="submit">Envoyer</button>
+    </form>
+
+    {% if form.non_field_errors %}
+        <div>
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+
+{% endblock %}

@@ -4,11 +4,11 @@ from reviews.models import Ticket, Review, UserFollows
 
 
 class TicketAdmin(admin.ModelAdmin):
-    list_display = ("title", "user", "time_created")
+    list_display = ("title", "user", "id", "time_created")
 
 
 class ReviewAdmin(admin.ModelAdmin):
-    list_display = ("ticket", "id", "headline", "user", "time_created")
+    list_display = ("headline", "user", "id", "ticket_title", "time_created")
 
 
 class UserFollowsAdmin(admin.ModelAdmin):

@@ -17,6 +17,8 @@ urlpatterns = [
     path('home/', reviews.views.home, name='home'),
     path('create_ticket/', reviews.views.create_ticket, name='create_ticket'),
     path('create_review/<int:ticket_id>/', reviews.views.create_review, name='create_review'),
+    path('create_ticket_and_review/', reviews.views.create_ticket_and_review, name='create_ticket_and_review'),
+    path('follow/', reviews.views.follow, name='follow'),
 ]
 
 if settings.DEBUG:

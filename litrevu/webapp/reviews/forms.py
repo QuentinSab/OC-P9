@@ -1,15 +1,47 @@
 from django import forms
 
-from reviews.models import Ticket, Review
+from authentication.models import User
+from reviews.models import Ticket, Review, UserFollows
 
 
 class TicketForm(forms.ModelForm):
     class Meta:
         model = Ticket
         fields = ('title', 'description', 'image')
+        labels = {
+            'title': 'Titre',
+        }
 
 
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = ('rating', 'headline', 'body')
+
+
+class FollowForm(forms.Form):
+    followed_user = forms.CharField(label="Nom d'utilisateur")
+
+    def __init__(self, *args, user=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.user = user
+
+    def clean_followed_user(self):
+        username = self.cleaned_data["followed_user"]
+
+        existing_users = User.objects.filter(username=username)
+        if not existing_users.exists():
+            raise forms.ValidationError("Cet utilisateur n'existe pas.")
+
+        self.followed_user = existing_users.first()
+
+        if self.followed_user.id == self.user.id:
+            raise forms.ValidationError("Vous ne pouvez pas vous suivre vous-même.")
+
+        if UserFollows.objects.filter(user=self.user, followed_user=self.followed_user).exists():
+            raise forms.ValidationError("Vous suivez déjà cet utilisateur.")
+
+        return username
+
+    def save(self):
+        return UserFollows.objects.create(user=self.user, followed_user=self.followed_user)
