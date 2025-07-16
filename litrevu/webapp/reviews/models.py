@@ -8,7 +8,7 @@ class Ticket(models.Model):
     description = models.fields.TextField(max_length=2048, blank=True)
     user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     image = models.ImageField(null=True, blank=True)
-    time_created = models.fields.DateField(auto_now_add=True)
+    time_created = models.fields.DateTimeField(auto_now_add=True)
 
 
 class Review(models.Model):

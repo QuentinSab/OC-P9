@@ -1,8 +1,12 @@
+from itertools import chain
+from operator import attrgetter
+
 from django.shortcuts import render, redirect, get_object_or_404
 from reviews import forms
+from reviews.utils import resize_image
 
 from django.contrib.auth.decorators import login_required
-from reviews.models import Ticket, UserFollows
+from reviews.models import Ticket, Review, UserFollows
 
 
 @login_required
@@ -20,6 +24,11 @@ def create_ticket(request):
         if form.is_valid():
             ticket = form.save(commit=False)
             ticket.user = request.user
+
+            image = form.cleaned_data.get("image")
+            if image:
+                ticket.image = resize_image(image)
+
             ticket.save()
             return redirect("home")
 
@@ -54,12 +63,19 @@ def create_ticket_and_review(request):
 
         if all([ticket_form.is_valid(), review_form.is_valid()]):
             ticket = ticket_form.save(commit=False)
+
+            image = ticket_form.cleaned_data.get("image")
+            if image:
+                ticket.image = resize_image(image)
+
             ticket.user = request.user
             ticket.save()
+
             review = review_form.save(commit=False)
             review.user = request.user
             review.ticket = ticket
             review.save()
+
             return redirect("home")
 
     context = {
@@ -95,4 +111,22 @@ def follow(request):
 def unfollow(request, followed_user_id):
     relation = get_object_or_404(UserFollows, user=request.user, followed_user_id=followed_user_id)
     relation.delete()
+
     return redirect("follow")
+
+
+@login_required
+def post(request):
+    user = request.user
+
+    tickets = Ticket.objects.filter(user=user)
+    reviews = Review.objects.filter(user=user)
+
+    for ticket in tickets:
+        ticket.content_type = "ticket"
+    for review in reviews:
+        review.content_type = "review"
+
+    posts = sorted(chain(reviews, tickets), key=attrgetter("time_created"), reverse=True)
+
+    return render(request, "reviews/post.html", {"posts": posts})
