@@ -1,17 +1,21 @@
-from itertools import chain
-from operator import attrgetter
-
 from django.shortcuts import render, redirect, get_object_or_404
 from reviews import forms
-from reviews.utils import resize_image
+from reviews.utils import resize_image, get_user_posts
 
 from django.contrib.auth.decorators import login_required
-from reviews.models import Ticket, Review, UserFollows
+from reviews.models import Ticket, UserFollows
 
 
 @login_required
-def home(request):
-    return render(request, "reviews/home.html")
+def feed(request):
+    posts = get_user_posts(request.user, include_followed=True)
+    return render(request, "reviews/home.html", {"posts": posts})
+
+
+@login_required
+def post(request):
+    posts = get_user_posts(request.user, include_followed=False)
+    return render(request, "reviews/post.html", {"posts": posts})
 
 
 @login_required
@@ -113,20 +117,3 @@ def unfollow(request, followed_user_id):
     relation.delete()
 
     return redirect("follow")
-
-
-@login_required
-def post(request):
-    user = request.user
-
-    tickets = Ticket.objects.filter(user=user)
-    reviews = Review.objects.filter(user=user)
-
-    for ticket in tickets:
-        ticket.content_type = "ticket"
-    for review in reviews:
-        review.content_type = "review"
-
-    posts = sorted(chain(reviews, tickets), key=attrgetter("time_created"), reverse=True)
-
-    return render(request, "reviews/post.html", {"posts": posts})
