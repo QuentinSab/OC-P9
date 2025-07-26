@@ -3,7 +3,7 @@ from reviews import forms
 from reviews.utils import resize_image, get_user_posts
 
 from django.contrib.auth.decorators import login_required
-from reviews.models import Ticket, UserFollows
+from reviews.models import Ticket, Review, UserFollows
 
 
 @login_required
@@ -88,6 +88,58 @@ def create_ticket_and_review(request):
     }
 
     return render(request, "reviews/create_ticket_and_review.html", context=context)
+
+
+@login_required
+def edit_ticket(request, ticket_id):
+    ticket = get_object_or_404(Ticket, id=ticket_id, user=request.user)
+
+    if request.method == "POST":
+        form = forms.TicketForm(request.POST, request.FILES, instance=ticket)
+        if form.is_valid():
+            form.save()
+            return redirect("post")
+    else:
+        form = forms.TicketForm(instance=ticket)
+
+    return render(request, "reviews/edit_post.html", {"form": form})
+
+
+@login_required
+def delete_ticket(request, ticket_id):
+    ticket = get_object_or_404(Ticket, id=ticket_id, user=request.user)
+
+    if request.method == "POST":
+        ticket.delete()
+        return redirect("post")
+
+    return render(request, "reviews/delete_post.html", {"ticket": ticket})
+
+
+@login_required
+def edit_review(request, review_id):
+    review = get_object_or_404(Review, id=review_id, user=request.user)
+
+    if request.method == "POST":
+        form = forms.ReviewForm(request.POST, instance=review)
+        if form.is_valid():
+            form.save()
+            return redirect("post")
+    else:
+        form = forms.ReviewForm(instance=review)
+
+    return render(request, "reviews/edit_post.html", {"form": form})
+
+
+@login_required
+def delete_review(request, review_id):
+    review = get_object_or_404(Review, id=review_id, user=request.user)
+
+    if request.method == "POST":
+        review.delete()
+        return redirect("post")
+
+    return render(request, "reviews/delete_post.html", {"review": review})
 
 
 @login_required

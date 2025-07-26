@@ -9,4 +9,8 @@ urlpatterns = [
     path('create_ticket_and_review/', views.create_ticket_and_review, name='create_ticket_and_review'),
     path('follow/', views.follow, name='follow'),
     path('unfollow/<int:followed_user_id>/', views.unfollow, name='unfollow'),
+    path('review/<int:review_id>/edit/', views.edit_review, name='edit_review'),
+    path('review/<int:review_id>/delete/', views.delete_review, name='delete_review'),
+    path('ticket/<int:ticket_id>/edit/', views.edit_ticket, name='edit_ticket'),
+    path('ticket/<int:ticket_id>/delete/', views.delete_ticket, name='delete_ticket'),
 ]

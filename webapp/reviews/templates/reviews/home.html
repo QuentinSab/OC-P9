@@ -1,11 +1,17 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'reviews/home.css' %}">
+{% endblock %}
+
 {% block content %}
     <div class="content">
 
-        <a href="{% url 'create_ticket' %}">Demander une critique</a>
-        <a href="{% url 'create_ticket_and_review' %}">Créer une critique</a>
-
-        <h2>Mes publications</h2>
+        <div>
+            <a href="{% url 'create_ticket' %}">Demander une critique</a>
+            <a href="{% url 'create_ticket_and_review' %}">Créer une critique</a>
+        </div>
 
         {% if posts %}
 
@@ -43,7 +49,7 @@
 
                             {% if post.user != request.user and not post.review_set.exists %}
                                 <form method="get" action="{% url 'create_review' post.id %}">
-                                    <button type="submit">Répondre</button>
+                                    <button type="submit">Créer une critique</button>
                                 </form>
                             {% endif %}
 

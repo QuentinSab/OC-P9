@@ -1,4 +1,9 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'reviews/post.css' %}">
+{% endblock %}
 
 {% block content %}
     <div class="content">
@@ -16,6 +21,14 @@
                             <h3>Critique de {{ post.user }}</h3>
                             <p><strong>{{ post.headline }}</strong> - {{ post.rating }}/5</p>
                             <p>{{ post.body }}</p>
+
+                            {% if post.user == request.user %}
+                                <div class="action">
+                                    <a href="{% url 'edit_review' post.id %}">Modifier</a>
+                                    <a href="{% url 'delete_review' post.id %}">Supprimer</a>
+                                </div>
+                                
+                            {% endif %}
 
                             <div class="ticket">
                                 <h4>Ticket lié : {{ post.ticket.title }}</h4>
@@ -37,6 +50,14 @@
 
                             {% if post.image %}
                                 <img src="{{ post.image.url }}" alt="Image du ticket">
+                            {% endif %}
+
+                            {% if post.user == request.user %}
+                                <div class="action">
+                                    <a href="{% url 'edit_ticket' post.id %}">Modifier</a>
+                                    <a href="{% url 'delete_ticket' post.id %}">Supprimer</a>
+                                </div>
+                                
                             {% endif %}
 
                         </div>
