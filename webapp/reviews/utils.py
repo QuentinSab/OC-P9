@@ -34,13 +34,10 @@ def get_user_posts(user, include_followed=False):
     tickets = Ticket.objects.filter(user__in=users)
     reviews = Review.objects.filter(user__in=users)
 
-    reviews_on_my_tickets = Review.objects.filter(ticket__user=user)
-    all_reviews = (reviews | reviews_on_my_tickets).distinct()
-
     for ticket in tickets:
         ticket.content_type = "ticket"
-    for review in all_reviews:
+    for review in reviews:
         review.content_type = "review"
 
-    posts = sorted(chain(tickets, all_reviews), key=attrgetter("time_created"), reverse=True)
+    posts = sorted(chain(tickets, reviews), key=attrgetter("time_created"), reverse=True)
     return posts

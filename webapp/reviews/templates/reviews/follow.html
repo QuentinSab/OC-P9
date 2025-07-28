@@ -10,7 +10,7 @@
 
         <h2>Suivre d'autres utilisateurs</h2>
 
-        <form method="post">
+        <form class="follow-section" method="post">
             {% csrf_token %}
             {{ form.followed_user.label_tag }}
             {{ form.followed_user }}
@@ -48,9 +48,33 @@
         <h2>Abonnés</h2>
         <ul>
             {% for relation in followers %}
-                <li>{{ relation.user.username }}</li>
+                <li>
+                    {{ relation.user.username }}
+
+                    {% if relation.user not in blocked_user %}
+                        <form method="post" action="{% url 'block' relation.user.id %}">
+                            {% csrf_token %}
+                            <button type="submit">Bloquer</button>
+                        </form>
+                    {% endif %}
+                </li>
             {% empty %}
                 <li>Personne ne vous suit encore.</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Utilisateurs bloqués</h2>
+        <ul>
+            {% for relation in blocked_user %}
+                <li>
+                    {{ relation.user.username }}
+                    <form method="post" action="{% url 'unblock' relation.blocked_user.id %}">
+                        {% csrf_token %}
+                        <button type="submit">Débloquer</button>
+                    </form>
+                </li>
+            {% empty %}
+                <li>Vous ne bloquez personne.</li>
             {% endfor %}
         </ul>
 
