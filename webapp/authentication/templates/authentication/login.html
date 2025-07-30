@@ -14,9 +14,15 @@
 
     <section class="login">
         <h2>Connectez-vous</h2>
+
         <form method="post">
             {{ form.as_p }}
             {% csrf_token %}
+
+            {% if message %}
+                <p class="error-message">{{ message }}</p>
+            {% endif %}
+
             <button class="button" type="submit">Connexion</button>
         </form>
     </section>

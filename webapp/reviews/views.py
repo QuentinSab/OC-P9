@@ -103,7 +103,7 @@ def edit_ticket(request, ticket_id):
     else:
         form = forms.TicketForm(instance=ticket)
 
-    return render(request, "reviews/edit_post.html", {"form": form})
+    return render(request, "reviews/edit_ticket.html", {"form": form})
 
 
 @login_required
@@ -129,7 +129,7 @@ def edit_review(request, review_id):
     else:
         form = forms.ReviewForm(instance=review)
 
-    return render(request, "reviews/edit_post.html", {"form": form})
+    return render(request, "reviews/edit_review.html", {"form": form})
 
 
 @login_required

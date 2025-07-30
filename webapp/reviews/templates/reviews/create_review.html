@@ -1,15 +1,50 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'reviews/create_review.css' %}">
+    <link rel="stylesheet" href="{% static 'reviews/starability/starability-basic.css' %}">
+{% endblock %}
+
 {% block content %}
 
     <h2>Créer une critique</h2>
 
     <form method="post">
-
-        {{ form.as_p }}
         {% csrf_token %}
 
-        <button type="submit">Envoyer</button>
+        <fieldset class="starability-basic">
+            <legend>Note :</legend>
 
+            <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked aria-label="Aucune note." />
+
+            <input type="radio" id="first-star" name="rating" value="1" />
+            <label for="first-star" title="Très mauvais">1 étoile</label>
+
+            <input type="radio" id="second-star" name="rating" value="2" />
+            <label for="second-star" title="Mauvais">2 étoiles</label>
+
+            <input type="radio" id="third-star" name="rating" value="3" />
+            <label for="third-star" title="Moyen">3 étoiles</label>
+
+            <input type="radio" id="fourth-star" name="rating" value="4" />
+            <label for="fourth-star" title="Bien">4 étoiles</label>
+
+            <input type="radio" id="fifth-star" name="rating" value="5" />
+            <label for="fifth-star" title="Excellent">5 étoiles</label>
+        </fieldset>
+
+        <p>
+            {{ form.headline.label_tag }}<br>
+            {{ form.headline }}
+        </p>
+
+        <p>
+            {{ form.body.label_tag }}<br>
+            {{ form.body }}
+        </p>
+
+        <button type="submit">Envoyer</button>
     </form>
 
 {% endblock content %}

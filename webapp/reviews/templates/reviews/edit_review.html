@@ -1,19 +1,17 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load static %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'reviews/create_ticket_and_review.css' %}">
+    <link rel="stylesheet" href="{% static 'reviews/edit_review.css' %}">
     <link rel="stylesheet" href="{% static 'reviews/starability/starability-basic.css' %}">
 {% endblock %}
 
 {% block content %}
 
-    <h2>Créer une critique</h2>
+    <h2>Modifier la critique</h2>
 
-    <form method="post" enctype="multipart/form-data">
-
+    <form method="post">
         {% csrf_token %}
-        {{ ticket_form.as_p }}
 
         <fieldset class="starability-basic">
             <legend>Note :</legend>
@@ -37,16 +35,16 @@
         </fieldset>
 
         <p>
-            {{ review_form.headline.label_tag }}<br>
-            {{ review_form.headline }}
+            {{ form.headline.label_tag }}<br>
+            {{ form.headline }}
         </p>
 
         <p>
-            {{ review_form.body.label_tag }}<br>
-            {{ review_form.body }}
+            {{ form.body.label_tag }}<br>
+            {{ form.body }}
         </p>
 
-        <button type="submit">Envoyer</button>
+        <button type="submit">Enregistrer</button>
     </form>
 
-{% endblock content %}
+{% endblock %}

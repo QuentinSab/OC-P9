@@ -3,6 +3,7 @@
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'reviews/home.css' %}">
+    <link rel="stylesheet" href="{% static 'reviews/starability/starability-basic.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -22,7 +23,8 @@
                         <div class="review">
 
                             <h3>Critique de {{ post.user }}</h3>
-                            <p><strong>{{ post.headline }}</strong> - {{ post.rating }}/5</p>
+                            <p><strong>{{ post.headline }}</strong></p>
+                            <div class="starability-result" data-rating="{{ post.rating }}" aria-label="{{ post.rating }} étoiles sur 5"></div>
                             <p>{{ post.body }}</p>
 
                             <div class="ticket">

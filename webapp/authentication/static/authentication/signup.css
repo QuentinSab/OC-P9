@@ -1,5 +1,6 @@
 h2 {
     text-align: center;
+    margin: 50px 0;
 }
 
 form {
@@ -11,23 +12,21 @@ form {
 
 form label {
     display: block;
-    margin-bottom: 10px;
     font-weight: bold;
 }
 
 form input{
     width: 100%;
+    margin: 10px 0;
     padding: 10px;
     border: 1px solid #ccc;
     font-size: 16px;
     box-sizing: border-box;
 }
 
-form .helptext {
-    font-size: 14px;
-    color: #666;
-    margin-top: 5px;
-    display: block;
+.error {
+    color: red;
+    font-size: 0.9em;
 }
 
 form ul {

@@ -10,8 +10,30 @@
     <h2>Inscrivez-vous</h2>
 
     <form method="post">
-        {{ form.as_p }}
         {% csrf_token %}
+
+        {{ form.username.label_tag }}
+        {{ form.username }}
+        {% if form.username.errors %}
+            <p class="error">{{ form.username.errors.0 }}</p>
+        {% endif %}
+
+        {{ form.password1.label_tag }}
+        {{ form.password1 }}
+        {% for error in form.password1.errors %}
+            <p class="error">{{ error }}</p>
+        {% endfor %}
+
+        {% if form.password1.help_text %}
+            <p class="helptext">{{ form.password1.help_text }}</p>
+        {% endif %}
+
+        {{ form.password2.label_tag }}
+        {{ form.password2 }}
+        {% for error in form.password2.errors %}
+            <p class="error">{{ error }}</p>
+        {% endfor %}
+
         <button type="submit">S'inscrire</button>
     </form>
 
