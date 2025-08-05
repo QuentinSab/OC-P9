@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from reviews import forms
-from reviews.utils import resize_image, get_user_posts
+from reviews.utils import resize_image, get_feed_posts, get_user_posts
 
 from django.contrib.auth.decorators import login_required
 from authentication.models import User
@@ -9,13 +9,13 @@ from reviews.models import Ticket, Review, UserFollow, UserBlock
 
 @login_required
 def feed(request):
-    posts = get_user_posts(request.user, include_followed=True)
+    posts = get_feed_posts(request.user)
     return render(request, "reviews/home.html", {"posts": posts})
 
 
 @login_required
 def post(request):
-    posts = get_user_posts(request.user, include_followed=False)
+    posts = get_user_posts(request.user)
     return render(request, "reviews/post.html", {"posts": posts})
 
 
@@ -179,9 +179,9 @@ def block_user(request, following_user_id):
     if request.method == "POST":
         blocked_user = get_object_or_404(User, id=following_user_id)
         UserBlock.objects.get_or_create(user=request.user, blocked_user=blocked_user)
-        UserFollow.objects.filter(user=blocked_user, followed_user=request.user).delete()
+        UserFollow.objects.filter(user=request.user, followed_user=blocked_user).delete()
 
-    return redirect("follow")
+    return redirect("home")
 
 
 @login_required

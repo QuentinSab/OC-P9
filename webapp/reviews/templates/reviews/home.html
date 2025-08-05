@@ -34,6 +34,12 @@
                                     <img src="{{ post.ticket.image.url }}" alt="Image du ticket">
                                 {% endif %}
                             </div>
+                            {% if post.user != request.user %}
+                                <form method="post" action="{% url 'block' post.user.id %}">
+                                    {% csrf_token %}
+                                    <button class="block" type="submit">Bloquer</button>
+                                </form>
+                            {% endif %}
 
                         </div>
 
@@ -55,6 +61,12 @@
                                 </form>
                             {% endif %}
 
+                            {% if post.user != request.user %}
+                                <form method="post" action="{% url 'block' post.user.id %}">
+                                    {% csrf_token %}
+                                    <button class="block" type="submit">Bloquer</button>
+                                </form>
+                            {% endif %}
                         </div>
 
                     {% endif %}

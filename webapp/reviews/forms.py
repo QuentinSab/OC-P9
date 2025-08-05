@@ -1,7 +1,7 @@
 from django import forms
 
 from authentication.models import User
-from reviews.models import Ticket, Review, UserFollow, UserBlock
+from reviews.models import Ticket, Review, UserFollow
 
 
 class TicketForm(forms.ModelForm):
@@ -38,9 +38,6 @@ class FollowForm(forms.Form):
 
         if UserFollow.objects.filter(user=self.user, followed_user=self.followed_user).exists():
             raise forms.ValidationError("Vous suivez déjà cet utilisateur.")
-
-        if UserBlock.objects.filter(user=self.followed_user, blocked_user=self.user).exists():
-            raise forms.ValidationError("Vous ne pouvez pas suivre cet utilisateur car il vous a bloqué.")
 
         return username
 

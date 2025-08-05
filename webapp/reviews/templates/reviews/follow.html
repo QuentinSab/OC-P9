@@ -50,13 +50,6 @@
             {% for relation in followers %}
                 <li>
                     {{ relation.user.username }}
-
-                    {% if relation.user not in blocked_user %}
-                        <form method="post" action="{% url 'block' relation.user.id %}">
-                            {% csrf_token %}
-                            <button type="submit">Bloquer</button>
-                        </form>
-                    {% endif %}
                 </li>
             {% empty %}
                 <li>Personne ne vous suit encore.</li>
