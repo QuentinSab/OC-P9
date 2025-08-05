@@ -4,7 +4,7 @@ from django.core.files.uploadedfile import InMemoryUploadedFile
 import sys
 from itertools import chain
 from operator import attrgetter
-from .models import Ticket, Review, UserFollows
+from .models import Ticket, Review, UserFollow
 
 
 def resize_image(image_file, max_width=256, max_height=256):
@@ -27,12 +27,17 @@ def resize_image(image_file, max_width=256, max_height=256):
 
 def get_user_posts(user, include_followed=False):
     users = [user]
+
     if include_followed:
-        followed_users = UserFollows.objects.filter(user=user).values_list('followed_user', flat=True)
+        followed_users = UserFollow.objects.filter(user=user).values_list('followed_user', flat=True)
         users += list(followed_users)
 
     tickets = Ticket.objects.filter(user__in=users)
     reviews = Review.objects.filter(user__in=users)
+
+    if include_followed:
+        reviews_on_user_tickets = Review.objects.filter(ticket__user=user)
+        reviews = (reviews | reviews_on_user_tickets).distinct()
 
     for ticket in tickets:
         ticket.content_type = "ticket"

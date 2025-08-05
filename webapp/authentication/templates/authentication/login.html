@@ -16,8 +16,8 @@
         <h2>Connectez-vous</h2>
 
         <form method="post">
-            {{ form.as_p }}
             {% csrf_token %}
+            {{ form.as_p }}
 
             {% if message %}
                 <p class="error-message">{{ message }}</p>

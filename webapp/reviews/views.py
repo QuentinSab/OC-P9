@@ -4,7 +4,7 @@ from reviews.utils import resize_image, get_user_posts
 
 from django.contrib.auth.decorators import login_required
 from authentication.models import User
-from reviews.models import Ticket, Review, UserFollows, UserBlocks
+from reviews.models import Ticket, Review, UserFollow, UserBlock
 
 
 @login_required
@@ -154,9 +154,9 @@ def follow(request):
     else:
         form = forms.FollowForm(user=request.user)
 
-    following = UserFollows.objects.filter(user=request.user)
-    followers = UserFollows.objects.filter(followed_user=request.user)
-    blocked_user = UserBlocks.objects.filter(user=request.user)
+    following = UserFollow.objects.filter(user=request.user)
+    followers = UserFollow.objects.filter(followed_user=request.user)
+    blocked_user = UserBlock.objects.filter(user=request.user)
 
     return render(request, "reviews/follow.html", {
         "form": form,
@@ -168,7 +168,7 @@ def follow(request):
 
 @login_required
 def unfollow(request, followed_user_id):
-    relation = get_object_or_404(UserFollows, user=request.user, followed_user_id=followed_user_id)
+    relation = get_object_or_404(UserFollow, user=request.user, followed_user_id=followed_user_id)
     relation.delete()
 
     return redirect("follow")
@@ -178,8 +178,8 @@ def unfollow(request, followed_user_id):
 def block_user(request, following_user_id):
     if request.method == "POST":
         blocked_user = get_object_or_404(User, id=following_user_id)
-        UserBlocks.objects.get_or_create(user=request.user, blocked_user=blocked_user)
-        UserFollows.objects.filter(user=blocked_user, followed_user=request.user).delete()
+        UserBlock.objects.get_or_create(user=request.user, blocked_user=blocked_user)
+        UserFollow.objects.filter(user=blocked_user, followed_user=request.user).delete()
 
     return redirect("follow")
 
@@ -187,10 +187,7 @@ def block_user(request, following_user_id):
 @login_required
 def unblock_user(request, blocked_user_id):
     if request.method == "POST":
-        block_relation = get_object_or_404(UserBlocks, user=request.user, blocked_user_id=blocked_user_id)
+        block_relation = get_object_or_404(UserBlock, user=request.user, blocked_user_id=blocked_user_id)
         block_relation.delete()
-
-        # blocked_user = get_object_or_404(User, id=blocked_user_id)
-        # UserFollows.objects.get_or_create(user=blocked_user, followed_user=request.user)
 
     return redirect("follow")

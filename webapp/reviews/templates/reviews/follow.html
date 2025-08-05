@@ -67,7 +67,7 @@
         <ul>
             {% for relation in blocked_user %}
                 <li>
-                    {{ relation.user.username }}
+                    {{ relation.blocked_user.username }}
                     <form method="post" action="{% url 'unblock' relation.blocked_user.id %}">
                         {% csrf_token %}
                         <button type="submit">Débloquer</button>
