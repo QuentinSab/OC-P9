@@ -10,12 +10,12 @@ form {
     border: 1px solid #ccc;
 }
 
-form label {
+label {
     display: block;
     font-weight: bold;
 }
 
-form input{
+input{
     width: 100%;
     margin: 10px 0;
     padding: 10px;
@@ -29,23 +29,9 @@ form input{
     font-size: 0.9em;
 }
 
-form ul {
+ul {
     padding: 5px 15px;
     font-size: 14px;
     color: #666;
     margin: 10px 0;
-}
-
-form button{
-    border: 1px solid #ccc;
-    color: black;
-    background-color: white;
-    padding: 10px 20px;
-    font-size: 16px;
-    font-family:'Courier New', Courier, monospace;
-    cursor: pointer;
-}
-
-form button:hover {
-    background-color: #0056b3;
 }

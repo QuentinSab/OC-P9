@@ -42,6 +42,7 @@ def create_ticket(request):
 
 @login_required
 def create_review(request, ticket_id):
+    ticket = get_object_or_404(Ticket, id=ticket_id)
     form = forms.ReviewForm()
 
     if request.method == "POST":
@@ -50,11 +51,16 @@ def create_review(request, ticket_id):
         if form.is_valid():
             review = form.save(commit=False)
             review.user = request.user
-            review.ticket = get_object_or_404(Ticket, id=ticket_id)
+            review.ticket = ticket
             review.save()
             return redirect("home")
 
-    return render(request, "reviews/create_review.html", context={"form": form}, )
+    context = {
+        "form": form,
+        "ticket": ticket,
+    }
+
+    return render(request, "reviews/create_review.html", context=context)
 
 
 @login_required
@@ -120,6 +126,7 @@ def delete_ticket(request, ticket_id):
 @login_required
 def edit_review(request, review_id):
     review = get_object_or_404(Review, id=review_id, user=request.user)
+    ticket = review.ticket
 
     if request.method == "POST":
         form = forms.ReviewForm(request.POST, instance=review)
@@ -129,7 +136,12 @@ def edit_review(request, review_id):
     else:
         form = forms.ReviewForm(instance=review)
 
-    return render(request, "reviews/edit_review.html", {"form": form})
+    context = {
+        "form": form,
+        "ticket": ticket,
+    }
+
+    return render(request, "reviews/edit_review.html", context=context)
 
 
 @login_required

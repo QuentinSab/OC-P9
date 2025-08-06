@@ -1,0 +1,74 @@
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+ul, section {
+    margin: 40px 0;
+    padding: 0;
+    list-style: none;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+h2, h3, h4, p{
+    margin: 0;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+input, textarea{
+    width: 100%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: white;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+textarea{
+    min-width: 100%;
+    max-width: 100%;
+}
+
+button {
+    align-self: flex-end;
+    width: auto;
+}
+
+.review, .ticket {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.review .ticket {
+    background-color: #fff;
+}
+
+.button-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 20px;
+}
+
+.original-post{
+    gap: 0;
+    margin-bottom: 0;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+}
+
+.answer-label{
+    margin: 20px;
+}

@@ -1,14 +1,51 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'reviews/base_review.css' %}">
+    <link rel="stylesheet" href="{% static 'reviews/starability/starability-basic.css' %}">
+{% endblock %}
 
 {% block content %}
-
     <h2>Confirmer la suppression</h2>
-    <p>Es-tu sûr de vouloir supprimer ce post ?</p>
+    <section>
+        {% if ticket %}
+            <div class="ticket">
+                <h3>Ticket de {{ ticket.user }}</h3>
 
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit">Supprimer</button>
-        <a href="{% url 'post' %}">Annuler</a>
-    </form>
+                <p>{{ ticket.title }}</p>
+                <p>{{ ticket.description }}</p>
 
+                {% if ticket.image %}
+                    <img src="{{ ticket.image.url }}" alt="Image du ticket">
+                {% endif %}
+            </div>
+        {% elif review %}
+            <div class="review">
+                <h3>Critique de {{ review.user }}</h3>
+
+                <p>{{ review.headline }}</p>
+                <div class="starability-result" data-rating="{{ review.rating }}"></div>
+                <p>{{ review.body }}</p>
+                <div class="ticket">
+                    <h4>Ticket lié : {{ review.ticket.title }}</h4>
+                    <p>{{ review.ticket.description }}</p>
+                    {% if review.ticket.image %}
+                        <img src="{{ review.ticket.image.url }}" alt="Image du ticket">
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+        
+        <p>Es-tu sûr de vouloir supprimer ce post ?</p>
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="button-list">
+                <button type="submit">Supprimer</button>
+                <a class="button" href="{% url 'post' %}">Annuler</a>
+            </div>
+
+        </form>
+    </section>
 {% endblock %}

@@ -2,26 +2,24 @@
 {% load static %}
 
 {% block extra_css %}
+    <link rel="stylesheet" href="{% static 'reviews/base_review.css' %}">
     <link rel="stylesheet" href="{% static 'reviews/follow.css' %}">
 {% endblock %}
 
 {% block content %}
-    <div class="follow-content">
-
+    <section>
         <h2>Suivre d'autres utilisateurs</h2>
-
-        <form class="follow-section" method="post">
+        <form method="post">
             {% csrf_token %}
             {{ form.followed_user.label_tag }}
-            {{ form.followed_user }}
-
+            <div class="search-bar">
+                {{ form.followed_user }}
+                <button type="submit">Envoyer</button>
+            </div>
+            
             {% if form.followed_user.errors %}
-                <div>
-                    {{ form.followed_user.errors }}
-                </div>
+                {{ form.followed_user.errors }}
             {% endif %}
-
-            <button type="submit">Envoyer</button>
         </form>
 
         {% if form.non_field_errors %}
@@ -29,47 +27,48 @@
                 {{ form.non_field_errors }}
             </div>
         {% endif %}
-
+    </section>
+    
+    <section>
         <h2>Abonnements</h2>
-        <ul>
-            {% for relation in following %}
-                <li>
-                    {{ relation.followed_user.username }}
-                    <form method="post" action="{% url 'unfollow' relation.followed_user.id %}">
-                        {% csrf_token %}
-                        <button type="submit">Désabonner</button>
-                    </form>
-                </li>
-            {% empty %}
-                <li>Vous ne suivez personne.</li>
-            {% endfor %}
-        </ul>
+        {% for relation in following %}
+            <li>
+                {{ relation.followed_user.username }}
+                <form method="post" action="{% url 'unfollow' relation.followed_user.id %}">
+                    {% csrf_token %}
+                    <button type="submit">Désabonner</button>
+                </form>
+            </li>
+        {% empty %}
+            <li>Vous ne suivez personne.</li>
+        {% endfor %}
+    </section>
 
+
+    <section>
         <h2>Abonnés</h2>
-        <ul>
-            {% for relation in followers %}
-                <li>
-                    {{ relation.user.username }}
-                </li>
-            {% empty %}
-                <li>Personne ne vous suit encore.</li>
-            {% endfor %}
-        </ul>
+        {% for relation in followers %}
+            <li>
+                {{ relation.user.username }}
+            </li>
+        {% empty %}
+            <li>Personne ne vous suit encore.</li>
+        {% endfor %}
+    </section>
 
+
+    <section>
         <h2>Utilisateurs bloqués</h2>
-        <ul>
-            {% for relation in blocked_user %}
-                <li>
-                    {{ relation.blocked_user.username }}
-                    <form method="post" action="{% url 'unblock' relation.blocked_user.id %}">
-                        {% csrf_token %}
-                        <button type="submit">Débloquer</button>
-                    </form>
-                </li>
-            {% empty %}
-                <li>Vous ne bloquez personne.</li>
-            {% endfor %}
-        </ul>
-
-    </div>
+        {% for relation in blocked_user %}
+            <li>
+                {{ relation.blocked_user.username }}
+                <form method="post" action="{% url 'unblock' relation.blocked_user.id %}">
+                    {% csrf_token %}
+                    <button type="submit">Débloquer</button>
+                </form>
+            </li>
+        {% empty %}
+            <li>Vous ne bloquez personne.</li>
+        {% endfor %}
+    </section>
 {% endblock %}

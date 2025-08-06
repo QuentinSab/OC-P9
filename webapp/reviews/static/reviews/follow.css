@@ -1,29 +1,22 @@
-.content {
-    display: flex;
-    justify-content: center;
-    padding: 40px;
-}
-
-.follow-content {
-    max-width: 800px;
-    width: 100%;
-    padding: 30px;
-    border: 1px solid #ccc;
-}
-
-h2 {
-    text-align: center;
+h2{
+    align-self: center;
     margin-bottom: 20px;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+section {
+    gap: 0;
+    margin: 0 0 20px 0;
+    border: 1px solid #ccc;
+    padding: 20px;
+    background-color: #f9f9f9;
 }
 
-.follow-section{
-    padding: 20px 0;
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
 }
 
 input{
@@ -34,33 +27,14 @@ input{
     box-sizing: border-box;
 }
 
-button {
-    align-self: center;
-    padding: 10px 20px;
-    font-size: 16px;
-    font-family: 'Courier New', Courier, monospace;
-    background-color: white;
-    color: black;
-    border: 1px solid #ccc;
-    cursor: pointer;
+.follow-section{
+    width: 100%;
 }
 
-button:hover {
-    background-color: #5086d3;
-    color: white;
-}
-
-ul {
-    padding-left: 0;
-    margin-bottom: 50px;
-}
-
-li{
+.search-bar{
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 0;
-    border-bottom: 1px solid #ddd;
+    flex-direction: row;
+    gap: 20px;
 }
 
 .errorlist li{

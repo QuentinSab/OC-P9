@@ -2,18 +2,19 @@
 {% load static %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'reviews/edit_ticket.css' %}">
+    <link rel="stylesheet" href="{% static 'reviews/base_review.css' %}">
     <link rel="stylesheet" href="{% static 'reviews/starability/starability-basic.css' %}">
 {% endblock %}
 
 {% block content %}
 
     <h2>Modifier le ticket</h2>
-
-    <form method="post" enctype="multipart/form-data">
-        {{ form.as_p }}
-        {% csrf_token %}
-        <button type="submit">Envoyer</button>
-    </form>
+    <section>
+        <form class="ticket" method="post" enctype="multipart/form-data">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <button type="submit">Envoyer</button>
+        </form>
+    </section>
 
 {% endblock %}

@@ -2,51 +2,53 @@
 {% load static %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'reviews/create_ticket_and_review.css' %}">
+    <link rel="stylesheet" href="{% static 'reviews/base_review.css' %}">
     <link rel="stylesheet" href="{% static 'reviews/starability/starability-basic.css' %}">
 {% endblock %}
 
 {% block content %}
 
     <h2>Créer une critique</h2>
+    <section>
+        <form class="review" method="post" enctype="multipart/form-data">
 
-    <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ ticket_form.as_p }}
 
-        {% csrf_token %}
-        {{ ticket_form.as_p }}
+            <div>
+                {{ review_form.headline.label_tag }}
+                {{ review_form.headline }}
+            </div>
 
-        <fieldset class="starability-basic">
-            <legend>Note :</legend>
+            <fieldset class="starability-basic">
+                <legend>Note :</legend>
 
-            <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked aria-label="Aucune note." />
+                <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked aria-label="Aucune note." />
 
-            <input type="radio" id="first-star" name="rating" value="1" />
-            <label for="first-star" title="Très mauvais">1 étoile</label>
+                <input type="radio" id="first-star" name="rating" value="1" />
+                <label for="first-star" title="Très mauvais">1 étoile</label>
 
-            <input type="radio" id="second-star" name="rating" value="2" />
-            <label for="second-star" title="Mauvais">2 étoiles</label>
+                <input type="radio" id="second-star" name="rating" value="2" />
+                <label for="second-star" title="Mauvais">2 étoiles</label>
 
-            <input type="radio" id="third-star" name="rating" value="3" />
-            <label for="third-star" title="Moyen">3 étoiles</label>
+                <input type="radio" id="third-star" name="rating" value="3" />
+                <label for="third-star" title="Moyen">3 étoiles</label>
 
-            <input type="radio" id="fourth-star" name="rating" value="4" />
-            <label for="fourth-star" title="Bien">4 étoiles</label>
+                <input type="radio" id="fourth-star" name="rating" value="4" />
+                <label for="fourth-star" title="Bien">4 étoiles</label>
 
-            <input type="radio" id="fifth-star" name="rating" value="5" />
-            <label for="fifth-star" title="Excellent">5 étoiles</label>
-        </fieldset>
+                <input type="radio" id="fifth-star" name="rating" value="5" />
+                <label for="fifth-star" title="Excellent">5 étoiles</label>
+            </fieldset>
 
-        <p>
-            {{ review_form.headline.label_tag }}<br>
-            {{ review_form.headline }}
-        </p>
+            <div>
+                {{ review_form.body.label_tag }}
+                {{ review_form.body }}
+            </div>
 
-        <p>
-            {{ review_form.body.label_tag }}<br>
-            {{ review_form.body }}
-        </p>
-
-        <button type="submit">Envoyer</button>
-    </form>
+            <button type="submit">Envoyer</button>
+        </form>
+    </section>
+    
 
 {% endblock content %}
