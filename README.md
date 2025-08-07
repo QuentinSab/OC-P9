@@ -73,13 +73,13 @@ Move in the application directory with :
 
 	cd .\webapp\
 
-And launch the server with:
+And launch the server with :
 
     python manage.py runserver
 
 ### 3. Open the web interface
 
-On a internet browser, go to the address :
+On an internet browser, go to the address :
 
 	http://127.0.0.1:8000
 
