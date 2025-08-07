@@ -4,7 +4,7 @@
     align-items: center;
 }
 
-ul, section {
+section {
     margin: 40px 0;
     padding: 0;
     list-style: none;
@@ -14,8 +14,17 @@ ul, section {
     gap: 30px;
 }
 
+ul{
+    padding: 0;
+}
+
 h2, h3, h4, p{
     margin: 0;
+}
+
+h2{
+    align-self: center;
+    margin-top: 10px;
 }
 
 label {
@@ -53,6 +62,12 @@ button {
 
 .review .ticket {
     background-color: #fff;
+}
+
+.ticket-img img{
+    max-width: 256px;
+    max-height: 256px;
+    object-fit: contain 
 }
 
 .button-list {

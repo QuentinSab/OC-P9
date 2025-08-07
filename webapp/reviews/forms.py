@@ -10,6 +10,12 @@ class TicketForm(forms.ModelForm):
         fields = ('title', 'description', 'image')
         labels = {'title': 'Titre'}
 
+    def clean_image(self):
+        image = self.cleaned_data.get('image')
+        if image and image.size > 2 * 1024 * 1024:
+            raise forms.ValidationError("L'image ne doit pas dépasser 2 Mo.")
+        return image
+
 
 class ReviewForm(forms.ModelForm):
     class Meta:

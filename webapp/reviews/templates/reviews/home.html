@@ -14,69 +14,74 @@
         <a class="button" href="{% url 'create_ticket_and_review' %}">Créer une critique</a>
     </div>
 
-    {% if posts %}
-        <ul>
-            {% for post in posts %}
+    <section>
+        {% if posts %}
+            
+                {% for post in posts %}
 
-                {% if post.content_type == "review" %}
-                    <div class="review">
+                    {% if post.content_type == "review" %}
+                        <div class="review">
 
-                        <h3>Critique de {{ post.user }}</h3>
-                        <p>{{ post.headline }}</p>
-                        <div class="starability-result" data-rating="{{ post.rating }}" aria-label="{{ post.rating }} étoiles sur 5"></div>
-                        <p>{{ post.body }}</p>
+                            <h3>Critique de {{ post.user }}</h3>
+                            <p>{{ post.headline }}</p>
+                            <div class="starability-result" data-rating="{{ post.rating }}" aria-label="{{ post.rating }} étoiles sur 5"></div>
+                            <p>{{ post.body }}</p>
 
-                        <div class="ticket">
-                            <h4>Ticket lié : {{ post.ticket.title }}</h4>
-                            <p>{{ post.ticket.description }}</p>
-                            {% if post.ticket.image %}
-                                <img src="{{ post.ticket.image.url }}" alt="Image du ticket">
-                            {% endif %}
-                        </div>
+                            <div class="ticket">
+                                <h4>Ticket lié : {{ post.ticket.title }}</h4>
+                                <p>{{ post.ticket.description }}</p>
 
-                        {% if post.user != request.user %}
-                            <div class="button-list">
-                                <form method="post" action="{% url 'block' post.user.id %}">
-                                    {% csrf_token %}
-                                    <button class="block" type="submit">Bloquer</button>
-                                </form>
+                                {% if post.ticket.image %}
+                                    <div class="ticket-img">
+                                        <img src="{{ post.ticket.image.url }}" alt="Image du ticket">
+                                    </div>
+                                {% endif %}
                             </div>
-                        {% endif %}
-                    </div>
 
-                {% elif post.content_type == "ticket" %}
-
-                    <div class="ticket">
-
-                        <h3>Ticket de {{ post.user }}</h3>
-                        <p>{{ post.title }}</p>
-                        <p>{{ post.description }}</p>
-
-                        {% if post.image %}
-                            <img src="{{ post.image.url }}" alt="Image du ticket">
-                        {% endif %}
-
-                        {% if post.user != request.user %}
-                            <div class="button-list">
-                                <form method="get" action="{% url 'create_review' post.id %}">
-                                    <button type="submit">Créer une critique</button>
-                                </form>
-
-                                {% if not post.review_set.exists %}
+                            {% if post.user != request.user %}
+                                <div class="button-list">
                                     <form method="post" action="{% url 'block' post.user.id %}">
                                         {% csrf_token %}
                                         <button class="block" type="submit">Bloquer</button>
                                     </form>
-                                {% endif %}
-                            </div>
-                        {% endif %}
+                                </div>
+                            {% endif %}
+                        </div>
 
-                    </div>
-                {% endif %}
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>Aucune publication pour le moment.</p>
-    {% endif %}
+                    {% elif post.content_type == "ticket" %}
 
+                        <div class="ticket">
+
+                            <h3>Ticket de {{ post.user }}</h3>
+                            <p>{{ post.title }}</p>
+                            <p>{{ post.description }}</p>
+
+                            {% if post.image %}
+                                <div class="ticket-img">
+                                    <img src="{{ post.image.url }}" alt="Image du ticket">
+                                </div>
+                            {% endif %}
+
+                            {% if post.user != request.user %}
+                                <div class="button-list">
+                                    <form method="get" action="{% url 'create_review' post.id %}">
+                                        <button type="submit">Créer une critique</button>
+                                    </form>
+
+                                    {% if not post.review_set.exists %}
+                                        <form method="post" action="{% url 'block' post.user.id %}">
+                                            {% csrf_token %}
+                                            <button class="block" type="submit">Bloquer</button>
+                                        </form>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+
+                        </div>
+                    {% endif %}
+                {% endfor %}
+        {% else %}
+                <p>Aucune publication pour le moment.</p>
+        {% endif %}
+    </section>
 {% endblock content %}

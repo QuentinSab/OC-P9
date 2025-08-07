@@ -53,3 +53,7 @@ header h1 {
     background-color: #5086d3;
     color: white;
 }
+
+.errorlist li, .error-message, .error{
+    color: red;
+}

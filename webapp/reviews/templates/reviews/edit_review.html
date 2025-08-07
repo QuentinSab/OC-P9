@@ -9,8 +9,8 @@
 
 {% block content %}
 
-    <h2>Modifier la critique</h2>
     <section class="original-post">
+        <h2>Modifier la critique</h2>
         <p class="answer-label">
             Vous êtes en train de poster en réponse à :
         </p>
@@ -19,12 +19,12 @@
             <p>{{ ticket.title }}</p>
             <p>{{ ticket.description }}</p>
             {% if ticket.image %}
-                <img src="{{ ticket.image.url }}" alt="Image du ticket">
+                <div class="ticket-img">
+                    <img src="{{ ticket.image.url }}" alt="Image du ticket">
+                </div>
             {% endif %}
         </div>
-    </section>
-
-    <section>
+        
         <form class="review" method="post">
             {% csrf_token %}
 

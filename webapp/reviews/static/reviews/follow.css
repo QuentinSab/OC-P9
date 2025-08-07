@@ -36,7 +36,3 @@ input{
     flex-direction: row;
     gap: 20px;
 }
-
-.errorlist li{
-    color: red;
-}

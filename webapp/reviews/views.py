@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from reviews import forms
-from reviews.utils import resize_image, get_feed_posts, get_user_posts
+from reviews.utils import get_feed_posts, get_user_posts
 
 from django.contrib.auth.decorators import login_required
 from authentication.models import User
@@ -32,7 +32,7 @@ def create_ticket(request):
 
             image = form.cleaned_data.get("image")
             if image:
-                ticket.image = resize_image(image)
+                ticket.image = image
 
             ticket.save()
             return redirect("home")
@@ -77,7 +77,7 @@ def create_ticket_and_review(request):
 
             image = ticket_form.cleaned_data.get("image")
             if image:
-                ticket.image = resize_image(image)
+                ticket.image = image
 
             ticket.user = request.user
             ticket.save()

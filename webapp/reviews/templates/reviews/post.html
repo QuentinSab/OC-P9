@@ -8,8 +8,8 @@
 
 {% block content %}
     <h2>Mes publications</h2>
-    {% if posts %}
-        <ul>
+    <section>
+        {% if posts %}
             {% for post in posts %}
                 {% if post.content_type == "review" %}
                     <div class="review">
@@ -28,8 +28,11 @@
                         <div class="ticket">
                             <h4>Ticket lié : {{ post.ticket.title }}</h4>
                             <p>{{ post.ticket.description }}</p>
+
                             {% if post.ticket.image %}
-                                <img src="{{ post.ticket.image.url }}" alt="Image du ticket">
+                                <div class="ticket-img">
+                                    <img src="{{ post.ticket.image.url }}" alt="Image du ticket">
+                                </div>
                             {% endif %}
                         </div>
                     </div>
@@ -40,7 +43,9 @@
                         <p>{{ post.description }}</p>
 
                         {% if post.image %}
-                            <img src="{{ post.image.url }}" alt="Image du ticket">
+                            <div class="ticket-img">
+                                <img src="{{ post.image.url }}" alt="Image du ticket">
+                            </div>
                         {% endif %}
 
                         {% if post.user == request.user %}
@@ -52,8 +57,9 @@
                     </div>
                 {% endif %}
             {% endfor %}
-        </ul>
-    {% else %}
-        <p>Aucune publication pour le moment.</p>
-    {% endif %}
+        {% else %}
+            <p>Aucune publication pour le moment.</p>
+        {% endif %}
+    </section>
+    
 {% endblock %}
