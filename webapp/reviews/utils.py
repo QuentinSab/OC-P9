@@ -13,10 +13,10 @@ def get_feed_posts(user):
 
     # Users to include: User + followed_user
     users = [user]
-    followed_users = UserFollow.objects.filter(user=user).values_list('followed_user', flat=True)
+    followed_users = UserFollow.objects.filter(user=user).values_list("followed_user", flat=True)
     users += list(followed_users)
 
-    blocked_user_ids = UserBlock.objects.filter(user=user).values_list('blocked_user_id', flat=True)
+    blocked_user_ids = UserBlock.objects.filter(user=user).values_list("blocked_user_id", flat=True)
 
     # Filtered tickets and reviews
     tickets = Ticket.objects.filter(user__in=users).exclude(user__in=blocked_user_ids)

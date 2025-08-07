@@ -1,5 +1,5 @@
 body {
-    font-family:'Courier New', Courier, monospace;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 header {
@@ -10,7 +10,8 @@ header {
     border: 1px solid #ccc;
 }
 
-header .left-header, header nav {
+header .left-header,
+header nav {
     width: 600px;
 }
 
@@ -38,7 +39,8 @@ header h1 {
     max-width: 1200px;
 }
 
-.button, button {
+.button,
+button {
     padding: 10px 20px;
     font-size: 16px;
     font-family: 'Courier New', Courier, monospace;
@@ -49,11 +51,14 @@ header h1 {
     text-decoration: none;
 }
 
-.button:hover, button:hover {
+.button:hover,
+button:hover {
     background-color: #5086d3;
     color: white;
 }
 
-.errorlist li, .error-message, .error{
+.errorlist li,
+.error-message,
+.error {
     color: red;
 }

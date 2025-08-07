@@ -2,85 +2,85 @@
 {% load static %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'reviews/base_review.css' %}">
-    <link rel="stylesheet" href="{% static 'reviews/follow.css' %}">
+<link rel="stylesheet" href="{% static 'reviews/base_review.css' %}">
+<link rel="stylesheet" href="{% static 'reviews/follow.css' %}">
 {% endblock %}
 
 {% block content %}
 
-    <!-- Follow form -->
-    <section>
-        <h2>Suivre d'autres utilisateurs</h2>
+<!-- Follow form -->
+<section>
+    <h2>Suivre d'autres utilisateurs</h2>
 
-        <form method="post">
-            {% csrf_token %}
-            {{ form.followed_user.label_tag }}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.followed_user.label_tag }}
 
-            <div class="search-bar">
-                {{ form.followed_user }}
-                <button type="submit">Envoyer</button>
-            </div>
-            
-            {% if form.followed_user.errors %}
-                {{ form.followed_user.errors }}
-            {% endif %}
-        </form>
+        <div class="search-bar">
+            {{ form.followed_user }}
+            <button type="submit">Envoyer</button>
+        </div>
 
-        {% if form.non_field_errors %}
-            <div>
-                {{ form.non_field_errors }}
-            </div>
+        {% if form.followed_user.errors %}
+        {{ form.followed_user.errors }}
         {% endif %}
-    </section>
-    
-    <!-- Follows list -->
-    <section>
-        <h2>Abonnements</h2>
-        <ul>
-            {% for relation in following %}
-                <li>
-                    {{ relation.followed_user.username }}
-                    <form method="post" action="{% url 'unfollow' relation.followed_user.id %}">
-                        {% csrf_token %}
-                        <button type="submit">Désabonner</button>
-                    </form>
-                </li>
-            {% empty %}
-                <li>Vous ne suivez personne.</li>
-            {% endfor %}
-        </ul>
-    </section>
+    </form>
 
-    <!-- Followers list -->
-    <section>
-        <h2>Abonnés</h2>
-        <ul>
-            {% for relation in followers %}
-                <li>
-                    {{ relation.user.username }}
-                </li>
-            {% empty %}
-                <li>Personne ne vous suit encore.</li>
-            {% endfor %}
-        </ul>
-    </section>
+    {% if form.non_field_errors %}
+    <div>
+        {{ form.non_field_errors }}
+    </div>
+    {% endif %}
+</section>
 
-    <!-- Blocked users list -->
-    <section>
-        <h2>Utilisateurs bloqués</h2>
-        <ul>
-            {% for relation in blocked_user %}
-                <li>
-                    {{ relation.blocked_user.username }}
+<!-- Follows list -->
+<section>
+    <h2>Abonnements</h2>
+    <ul>
+        {% for relation in following %}
+        <li>
+            {{ relation.followed_user.username }}
+            <form method="post" action="{% url 'unfollow' relation.followed_user.id %}">
+                {% csrf_token %}
+                <button type="submit">Désabonner</button>
+            </form>
+        </li>
+        {% empty %}
+        <li>Vous ne suivez personne.</li>
+        {% endfor %}
+    </ul>
+</section>
 
-                    <form method="post" action="{% url 'unblock' relation.blocked_user.id %}">
-                        {% csrf_token %}
-                        <button type="submit">Débloquer</button>
-                    </form>
-                </li>
-            {% empty %}
-                <li>Vous ne bloquez personne.</li>
-            {% endfor %}
-        </ul>
-    </section>
+<!-- Followers list -->
+<section>
+    <h2>Abonnés</h2>
+    <ul>
+        {% for relation in followers %}
+        <li>
+            {{ relation.user.username }}
+        </li>
+        {% empty %}
+        <li>Personne ne vous suit encore.</li>
+        {% endfor %}
+    </ul>
+</section>
+
+<!-- Blocked users list -->
+<section>
+    <h2>Utilisateurs bloqués</h2>
+    <ul>
+        {% for relation in blocked_user %}
+        <li>
+            {{ relation.blocked_user.username }}
+
+            <form method="post" action="{% url 'unblock' relation.blocked_user.id %}">
+                {% csrf_token %}
+                <button type="submit">Débloquer</button>
+            </form>
+        </li>
+        {% empty %}
+        <li>Vous ne bloquez personne.</li>
+        {% endfor %}
+    </ul>
+</section>
 {% endblock %}

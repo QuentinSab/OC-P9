@@ -2,81 +2,82 @@
 {% load static %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'reviews/base_review.css' %}">
-    <link rel="stylesheet" href="{% static 'reviews/starability/starability-basic.css' %}">
+<link rel="stylesheet" href="{% static 'reviews/base_review.css' %}">
+<link rel="stylesheet" href="{% static 'reviews/starability/starability-basic.css' %}">
 {% endblock %}
 
 {% block content %}
-    <h2>Mes publications</h2>
+<h2>Mes publications</h2>
 
-    <!-- Personals posts -->
-    <section>
-        {% if posts %}
-            {% for post in posts %}
+<!-- Personals posts -->
+<section>
+    {% if posts %}
+    {% for post in posts %}
 
-                <!-- Personnals reviews-->
-                {% if post.content_type == "review" %}
+    <!-- Personnals reviews-->
+    {% if post.content_type == "review" %}
 
-                    <div class="review">
+    <div class="review">
 
-                        <h3>Critique de {{ post.user }}</h3>
-                        <p>{{ post.headline }}</p>
-                        <div class="starability-result" data-rating="{{ post.rating }}" aria-label="{{ post.rating }} étoiles sur 5"></div>
-                        <p>{{ post.body }}</p>
+        <h3>Critique de {{ post.user }}</h3>
+        <p>{{ post.headline }}</p>
+        <div class="starability-result" data-rating="{{ post.rating }}" aria-label="{{ post.rating }} étoiles sur 5">
+        </div>
+        <p>{{ post.body }}</p>
 
-                        <!-- Actions buttons -->
-                        {% if post.user == request.user %}
-                            <div class="button-list">
-                                <a class="button" href="{% url 'edit_review' post.id %}">Modifier</a>
-                                <a class="button" href="{% url 'delete_review' post.id %}">Supprimer</a>
-                            </div>
-                        {% endif %}
-
-                        <!-- Linked review ticket -->
-                        <div class="ticket">
-                            <h4>Ticket lié : {{ post.ticket.title }}</h4>
-                            <p>{{ post.ticket.description }}</p>
-
-                            {% if post.ticket.image %}
-                                <div class="ticket-img">
-                                    <img src="{{ post.ticket.image.url }}" alt="Image du ticket">
-                                </div>
-                            {% endif %}
-                        </div>
-
-                    </div>
-
-                <!-- Personnals tickets -->
-                {% elif post.content_type == "ticket" %}
-
-                    <div class="ticket">
-
-                        <h3>Ticket de {{ post.user }}</h3>
-                        <p>{{ post.title }}</p>
-                        <p>{{ post.description }}</p>
-
-                        {% if post.image %}
-                            <div class="ticket-img">
-                                <img src="{{ post.image.url }}" alt="Image du ticket">
-                            </div>
-                        {% endif %}
-
-                        <!-- Actions buttons -->
-                        {% if post.user == request.user %}
-                            <div class="button-list">
-                                <a class="button" href="{% url 'edit_ticket' post.id %}">Modifier</a>
-                                <a class="button" href="{% url 'delete_ticket' post.id %}">Supprimer</a>
-                            </div>
-                        {% endif %}
-
-                    </div>
-
-                {% endif %}
-
-            {% endfor %}
-        {% else %}
-            <p>Aucune publication pour le moment.</p>
+        <!-- Actions buttons -->
+        {% if post.user == request.user %}
+        <div class="button-list">
+            <a class="button" href="{% url 'edit_review' post.id %}">Modifier</a>
+            <a class="button" href="{% url 'delete_review' post.id %}">Supprimer</a>
+        </div>
         {% endif %}
-    </section>
-    
+
+        <!-- Linked review ticket -->
+        <div class="ticket">
+            <h4>Ticket lié : {{ post.ticket.title }}</h4>
+            <p>{{ post.ticket.description }}</p>
+
+            {% if post.ticket.image %}
+            <div class="ticket-img">
+                <img src="{{ post.ticket.image.url }}" alt="Image du ticket">
+            </div>
+            {% endif %}
+        </div>
+
+    </div>
+
+    <!-- Personnals tickets -->
+    {% elif post.content_type == "ticket" %}
+
+    <div class="ticket">
+
+        <h3>Ticket de {{ post.user }}</h3>
+        <p>{{ post.title }}</p>
+        <p>{{ post.description }}</p>
+
+        {% if post.image %}
+        <div class="ticket-img">
+            <img src="{{ post.image.url }}" alt="Image du ticket">
+        </div>
+        {% endif %}
+
+        <!-- Actions buttons -->
+        {% if post.user == request.user %}
+        <div class="button-list">
+            <a class="button" href="{% url 'edit_ticket' post.id %}">Modifier</a>
+            <a class="button" href="{% url 'delete_ticket' post.id %}">Supprimer</a>
+        </div>
+        {% endif %}
+
+    </div>
+
+    {% endif %}
+
+    {% endfor %}
+    {% else %}
+    <p>Aucune publication pour le moment.</p>
+    {% endif %}
+</section>
+
 {% endblock %}

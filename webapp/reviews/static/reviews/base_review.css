@@ -14,15 +14,18 @@ section {
     gap: 30px;
 }
 
-ul{
+ul {
     padding: 0;
 }
 
-h2, h3, h4, p{
+h2,
+h3,
+h4,
+p {
     margin: 0;
 }
 
-h2{
+h2 {
     align-self: center;
     margin-top: 10px;
 }
@@ -32,7 +35,8 @@ label {
     margin-bottom: 10px;
 }
 
-input, textarea{
+input,
+textarea {
     width: 100%;
     padding: 20px;
     border: 1px solid #ccc;
@@ -41,7 +45,7 @@ input, textarea{
     font-size: 16px;
 }
 
-textarea{
+textarea {
     min-width: 100%;
     max-width: 100%;
 }
@@ -51,7 +55,8 @@ button {
     width: auto;
 }
 
-.review, .ticket {
+.review,
+.ticket {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -64,10 +69,10 @@ button {
     background-color: #fff;
 }
 
-.ticket-img img{
+.ticket-img img {
     max-width: 256px;
     max-height: 256px;
-    object-fit: contain 
+    object-fit: contain
 }
 
 .button-list {
@@ -77,13 +82,13 @@ button {
     gap: 20px;
 }
 
-.original-post{
+.original-post {
     gap: 0;
     margin-bottom: 0;
     border: 1px solid #ccc;
     background-color: #f9f9f9;
 }
 
-.answer-label{
+.answer-label {
     margin: 20px;
 }

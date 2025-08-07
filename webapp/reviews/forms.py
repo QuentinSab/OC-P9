@@ -8,12 +8,12 @@ class TicketForm(forms.ModelForm):
     # Form for creating or editing a Ticket
     class Meta:
         model = Ticket
-        fields = ('title', 'description', 'image')
-        labels = {'title': 'Titre'}
+        fields = ("title", "description", "image")
+        labels = {"title": "Titre"}
 
     def clean_image(self):
         # Validates that the uploaded image is not larger than 2MB
-        image = self.cleaned_data.get('image')
+        image = self.cleaned_data.get("image")
         if image and image.size > 2 * 1024 * 1024:
             raise forms.ValidationError("L'image ne doit pas dépasser 2 Mo.")
         return image
@@ -23,7 +23,7 @@ class ReviewForm(forms.ModelForm):
     # Form for creating or editing a Review
     class Meta:
         model = Review
-        fields = ('rating', 'headline', 'body')
+        fields = ("rating", "headline", "body")
 
 
 class FollowForm(forms.Form):

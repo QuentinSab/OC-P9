@@ -1,4 +1,4 @@
-h2{
+h2 {
     align-self: center;
     margin-bottom: 20px;
 }
@@ -19,7 +19,7 @@ li {
     border-bottom: 1px solid #ddd;
 }
 
-input{
+input {
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ccc;
@@ -27,11 +27,11 @@ input{
     box-sizing: border-box;
 }
 
-.follow-section{
+.follow-section {
     width: 100%;
 }
 
-.search-bar{
+.search-bar {
     display: flex;
     flex-direction: row;
     gap: 20px;

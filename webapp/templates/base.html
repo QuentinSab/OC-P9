@@ -3,39 +3,40 @@
 <!DOCTYPE html>
 <html lang="fr-FR">
 
-    <head>
-        <title>LITRevu</title>
-        <link rel="stylesheet" href="{% static 'styles.css' %}">
-        {% block extra_css %}
-        {% endblock %}
-    </head>
+<head>
+    <title>LITRevu</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    {% block extra_css %}
+    {% endblock %}
+</head>
 
-    <body>
+<body>
 
-        <header>
-            <div class="left-header">
-                <a href="{% url 'login' %}">
-                    <img class="logo-header" src="{% static 'litrevu_logo.png' %}" alt="Logo LITRevu">
-                </a>
-            </div>
-
-            <h1>LITRevu</h1>
-
-            <nav>
-                {% if user.is_authenticated %}
-                    <a href="{% url 'home' %}">Flux</a>
-                    <a href="{% url 'post' %}">Posts</a>
-                    <a href="{% url 'follow' %}">Abonnements</a>
-                    <a href="{% url 'logout' %}">Se déconnecter</a>
-                {% endif %}
-            </nav>
-        </header>
-        
-        <!-- Page content -->
-        <div class="content">
-            {% block content %}
-            {% endblock %}
+    <header>
+        <div class="left-header">
+            <a href="{% url 'login' %}">
+                <img class="logo-header" src="{% static 'litrevu_logo.png' %}" alt="Logo LITRevu">
+            </a>
         </div>
 
-    </body>
+        <h1>LITRevu</h1>
+
+        <nav>
+            {% if user.is_authenticated %}
+            <a href="{% url 'home' %}">Flux</a>
+            <a href="{% url 'post' %}">Posts</a>
+            <a href="{% url 'follow' %}">Abonnements</a>
+            <a href="{% url 'logout' %}">Se déconnecter</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <!-- Page content -->
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+</body>
+
 </html>

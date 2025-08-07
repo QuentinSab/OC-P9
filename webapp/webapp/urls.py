@@ -6,10 +6,10 @@ from django.conf.urls.static import static
 from django.views.generic.base import RedirectView
 
 urlpatterns = [
-    path('', RedirectView.as_view(url='auth/login/')),
-    path('admin/', admin.site.urls),
-    path('auth/', include('authentication.urls')),
-    path('review/', include('reviews.urls')),
+    path("", RedirectView.as_view(url="auth/login/")),
+    path("admin/", admin.site.urls),
+    path("auth/", include("authentication.urls")),
+    path("review/", include("reviews.urls")),
 ]
 
 if settings.DEBUG:

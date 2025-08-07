@@ -2,19 +2,19 @@
 {% load static %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'reviews/base_review.css' %}">
-    <link rel="stylesheet" href="{% static 'reviews/starability/starability-basic.css' %}">
+<link rel="stylesheet" href="{% static 'reviews/base_review.css' %}">
+<link rel="stylesheet" href="{% static 'reviews/starability/starability-basic.css' %}">
 {% endblock %}
 
 {% block content %}
 
-    <section>
-        <h2>Modifier le ticket</h2>
-        <form class="ticket" method="post" enctype="multipart/form-data">
-            {{ form.as_p }}
-            {% csrf_token %}
-            <button type="submit">Envoyer</button>
-        </form>
-    </section>
+<section>
+    <h2>Modifier le ticket</h2>
+    <form class="ticket" method="post" enctype="multipart/form-data">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <button type="submit">Envoyer</button>
+    </form>
+</section>
 
 {% endblock %}

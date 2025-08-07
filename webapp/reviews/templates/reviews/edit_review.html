@@ -2,70 +2,71 @@
 {% load static %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'reviews/base_review.css' %}">
-    <link rel="stylesheet" href="{% static 'reviews/edit_review.css' %}">
-    <link rel="stylesheet" href="{% static 'reviews/starability/starability-basic.css' %}">
+<link rel="stylesheet" href="{% static 'reviews/base_review.css' %}">
+<link rel="stylesheet" href="{% static 'reviews/edit_review.css' %}">
+<link rel="stylesheet" href="{% static 'reviews/starability/starability-basic.css' %}">
 {% endblock %}
 
 {% block content %}
 
-    <section class="original-post">
-        <h2>Modifier la critique</h2>
+<section class="original-post">
+    <h2>Modifier la critique</h2>
 
-        <p class="answer-label">
-            Vous êtes en train de poster en réponse à :
+    <p class="answer-label">
+        Vous êtes en train de poster en réponse à :
+    </p>
+
+    <!-- Ticket of the review being modified -->
+    <div class="ticket">
+        <h3>Ticket de {{ ticket.user }}</h3>
+        <p>{{ ticket.title }}</p>
+        <p>{{ ticket.description }}</p>
+        {% if ticket.image %}
+        <div class="ticket-img">
+            <img src="{{ ticket.image.url }}" alt="Image du ticket">
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Form of review currently edited -->
+    <form class="review" method="post">
+        {% csrf_token %}
+
+        <p>
+            {{ form.headline.label_tag }}
+            {{ form.headline }}
         </p>
 
-        <!-- Ticket of the review being modified -->
-        <div class="ticket">
-            <h3>Ticket de {{ ticket.user }}</h3>
-            <p>{{ ticket.title }}</p>
-            <p>{{ ticket.description }}</p>
-            {% if ticket.image %}
-                <div class="ticket-img">
-                    <img src="{{ ticket.image.url }}" alt="Image du ticket">
-                </div>
-            {% endif %}
-        </div>
-        
-        <!-- Form of review currently edited -->
-        <form class="review" method="post">
-            {% csrf_token %}
+        <!-- Star rating bar -->
+        <fieldset class="starability-basic">
+            <legend>Note :</legend>
 
-            <p>
-                {{ form.headline.label_tag }}
-                {{ form.headline }}
-            </p>
+            <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked
+                aria-label="Aucune note." />
 
-            <!-- Star rating bar -->
-            <fieldset class="starability-basic">
-                <legend>Note :</legend>
+            <input type="radio" id="first-star" name="rating" value="1" />
+            <label for="first-star" title="Très mauvais">1 étoile</label>
 
-                <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked aria-label="Aucune note." />
+            <input type="radio" id="second-star" name="rating" value="2" />
+            <label for="second-star" title="Mauvais">2 étoiles</label>
 
-                <input type="radio" id="first-star" name="rating" value="1" />
-                <label for="first-star" title="Très mauvais">1 étoile</label>
+            <input type="radio" id="third-star" name="rating" value="3" />
+            <label for="third-star" title="Moyen">3 étoiles</label>
 
-                <input type="radio" id="second-star" name="rating" value="2" />
-                <label for="second-star" title="Mauvais">2 étoiles</label>
+            <input type="radio" id="fourth-star" name="rating" value="4" />
+            <label for="fourth-star" title="Bien">4 étoiles</label>
 
-                <input type="radio" id="third-star" name="rating" value="3" />
-                <label for="third-star" title="Moyen">3 étoiles</label>
+            <input type="radio" id="fifth-star" name="rating" value="5" />
+            <label for="fifth-star" title="Excellent">5 étoiles</label>
+        </fieldset>
 
-                <input type="radio" id="fourth-star" name="rating" value="4" />
-                <label for="fourth-star" title="Bien">4 étoiles</label>
+        <p>
+            {{ form.body.label_tag }}
+            {{ form.body }}
+        </p>
 
-                <input type="radio" id="fifth-star" name="rating" value="5" />
-                <label for="fifth-star" title="Excellent">5 étoiles</label>
-            </fieldset>
-
-            <p>
-                {{ form.body.label_tag }}
-                {{ form.body }}
-            </p>
-
-            <button type="submit">Enregistrer</button>
-        </form>
-    </section>
+        <button type="submit">Enregistrer</button>
+    </form>
+</section>
 
 {% endblock %}

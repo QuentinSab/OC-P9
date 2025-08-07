@@ -181,12 +181,11 @@ def follow(request):
     followers = UserFollow.objects.filter(followed_user=request.user)
     blocked_user = UserBlock.objects.filter(user=request.user)
 
-    return render(request, "reviews/follow.html", {
-        "form": form,
-        "following": following,
-        "followers": followers,
-        "blocked_user": blocked_user
-    })
+    return render(
+        request,
+        "reviews/follow.html",
+        {"form": form, "following": following, "followers": followers, "blocked_user": blocked_user},
+    )
 
 
 @login_required

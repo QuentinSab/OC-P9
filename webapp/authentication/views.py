@@ -20,7 +20,7 @@ def signup_page(request):
             login(request, user)
             return redirect(settings.LOGIN_REDIRECT_URL)
 
-    return render(request, 'authentication/signup.html', context={"form": form})
+    return render(request, "authentication/signup.html", context={"form": form})
 
 
 def login_page(request):
@@ -38,7 +38,7 @@ def login_page(request):
             user = authenticate(
                 username=form.cleaned_data["username"],
                 password=form.cleaned_data["password"],
-                )
+            )
 
             if user is not None:
                 login(request, user)
