@@ -85,14 +85,14 @@ On an internet browser, go to the address :
 
 ### 4. Test
 
-L'application inclut quatre utilisateurs à des fins de test.
+The application includes four users for testing purposes.
 
-Un utilisateur administrateur ayant accès à l'interface d'administration :
+An administrator user with access to the administration interface:
 
     Username : admin
     Password : admin
 
-Trois utilisateurs de test :
+Three test users:
 
     Username : Utilisateur1
     Password : Motdepasse1
@@ -102,3 +102,11 @@ Trois utilisateurs de test :
 
     Username : Utilisateur3
     Password : Motdepasse3
+
+### 5. Administration interface
+
+To access administration interface go to the following address :
+
+    http://127.0.0.1:8000/admin/
+
+And use the administrator credentials.
