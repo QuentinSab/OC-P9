@@ -100,5 +100,5 @@ Trois utilisateurs de test :
     Username : Utilisateur2
     Password : Motdepasse2
 
-    Username : Utilisateur2
-    Password : Motdepasse2
+    Username : Utilisateur3
+    Password : Motdepasse3
