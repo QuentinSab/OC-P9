@@ -9,18 +9,21 @@ from reviews.models import Ticket, Review, UserFollow, UserBlock
 
 @login_required
 def feed(request):
+    # Display the user feed with viewables posts
     posts = get_feed_posts(request.user)
     return render(request, "reviews/home.html", {"posts": posts})
 
 
 @login_required
 def post(request):
+    # Display the current user's own posts
     posts = get_user_posts(request.user)
     return render(request, "reviews/post.html", {"posts": posts})
 
 
 @login_required
 def create_ticket(request):
+    # Create a new ticket (with optional image)
     form = forms.TicketForm()
 
     if request.method == "POST":
@@ -42,6 +45,7 @@ def create_ticket(request):
 
 @login_required
 def create_review(request, ticket_id):
+    # Create a review in response to a specific ticket
     ticket = get_object_or_404(Ticket, id=ticket_id)
     form = forms.ReviewForm()
 
@@ -65,6 +69,7 @@ def create_review(request, ticket_id):
 
 @login_required
 def create_ticket_and_review(request):
+    # Create both a ticket and a review
     ticket_form = forms.TicketForm()
     review_form = forms.ReviewForm()
 
@@ -72,6 +77,7 @@ def create_ticket_and_review(request):
         ticket_form = forms.TicketForm(request.POST, request.FILES)
         review_form = forms.ReviewForm(request.POST)
 
+        # Validate both forms before saving
         if all([ticket_form.is_valid(), review_form.is_valid()]):
             ticket = ticket_form.save(commit=False)
 
@@ -99,6 +105,7 @@ def create_ticket_and_review(request):
 
 @login_required
 def edit_ticket(request, ticket_id):
+    # Edit an existing ticket belonging to the user
     ticket = get_object_or_404(Ticket, id=ticket_id, user=request.user)
 
     if request.method == "POST":
@@ -114,6 +121,7 @@ def edit_ticket(request, ticket_id):
 
 @login_required
 def delete_ticket(request, ticket_id):
+    # Delete a ticket belonging to the user
     ticket = get_object_or_404(Ticket, id=ticket_id, user=request.user)
 
     if request.method == "POST":
@@ -125,6 +133,7 @@ def delete_ticket(request, ticket_id):
 
 @login_required
 def edit_review(request, review_id):
+    # Edit a review belonging to the user
     review = get_object_or_404(Review, id=review_id, user=request.user)
     ticket = review.ticket
 
@@ -146,6 +155,7 @@ def edit_review(request, review_id):
 
 @login_required
 def delete_review(request, review_id):
+    # Delete a review belonging to the user
     review = get_object_or_404(Review, id=review_id, user=request.user)
 
     if request.method == "POST":
@@ -157,6 +167,7 @@ def delete_review(request, review_id):
 
 @login_required
 def follow(request):
+    # Manage following, followers, blocked users and display a form to follow other users
     if request.method == "POST":
         form = forms.FollowForm(request.POST, user=request.user)
 
@@ -180,6 +191,7 @@ def follow(request):
 
 @login_required
 def unfollow(request, followed_user_id):
+    # Unfollow a user
     relation = get_object_or_404(UserFollow, user=request.user, followed_user_id=followed_user_id)
     relation.delete()
 
@@ -188,6 +200,7 @@ def unfollow(request, followed_user_id):
 
 @login_required
 def block_user(request, following_user_id):
+    # Block a user and remove follow relationship
     if request.method == "POST":
         blocked_user = get_object_or_404(User, id=following_user_id)
         UserBlock.objects.get_or_create(user=request.user, blocked_user=blocked_user)
@@ -198,6 +211,7 @@ def block_user(request, following_user_id):
 
 @login_required
 def unblock_user(request, blocked_user_id):
+    # Unblock a user
     if request.method == "POST":
         block_relation = get_object_or_404(UserBlock, user=request.user, blocked_user_id=blocked_user_id)
         block_relation.delete()

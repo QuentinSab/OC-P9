@@ -6,6 +6,10 @@ from authentication import forms
 
 
 def signup_page(request):
+    """
+    Handle user sign-up.
+    If the request is POST and the form is valid, create the user and log them in.
+    """
     form = forms.SignupForm()
 
     if request.method == "POST":
@@ -20,6 +24,10 @@ def signup_page(request):
 
 
 def login_page(request):
+    """
+    Handle user login.
+    Authenticate user and redirect if valid, else show error message.
+    """
     form = forms.LoginForm()
     message = ""
 
@@ -43,5 +51,8 @@ def login_page(request):
 
 
 def logout_user(request):
+    """
+    Log out the current user and redirect to login page.
+    """
     logout(request)
     return redirect("login")

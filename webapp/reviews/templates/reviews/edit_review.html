@@ -11,9 +11,12 @@
 
     <section class="original-post">
         <h2>Modifier la critique</h2>
+
         <p class="answer-label">
             Vous êtes en train de poster en réponse à :
         </p>
+
+        <!-- Ticket of the review being modified -->
         <div class="ticket">
             <h3>Ticket de {{ ticket.user }}</h3>
             <p>{{ ticket.title }}</p>
@@ -25,6 +28,7 @@
             {% endif %}
         </div>
         
+        <!-- Form of review currently edited -->
         <form class="review" method="post">
             {% csrf_token %}
 
@@ -33,6 +37,7 @@
                 {{ form.headline }}
             </p>
 
+            <!-- Star rating bar -->
             <fieldset class="starability-basic">
                 <legend>Note :</legend>
 

@@ -14,6 +14,7 @@
             Vous êtes en train de poster en réponse à :
         </p>
 
+        <!-- Ticket that is currently responding to -->
         <div class="ticket">
             <h3>Ticket de {{ ticket.user }}</h3>
 
@@ -26,6 +27,8 @@
                 </div>
             {% endif %}
         </div>
+
+        <!-- Responding review -->>
         <form class="review" method="post">
             {% csrf_token %}
 
@@ -34,6 +37,7 @@
                 {{ form.headline }}
             </div>
 
+            <!-- Star rating bar -->
             <fieldset class="starability-basic">
                 <legend>Note :</legend>
 

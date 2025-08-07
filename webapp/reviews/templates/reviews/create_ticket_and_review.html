@@ -13,13 +13,17 @@
         <form class="review" method="post" enctype="multipart/form-data">
 
             {% csrf_token %}
+
+            <!-- Ticket form -->
             {{ ticket_form.as_p }}
 
+            <!-- Review form-->
             <div>
                 {{ review_form.headline.label_tag }}
                 {{ review_form.headline }}
             </div>
 
+            <!-- Star rating bar -->
             <fieldset class="starability-basic">
                 <legend>Note :</legend>
 

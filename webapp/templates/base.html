@@ -2,13 +2,16 @@
 
 <!DOCTYPE html>
 <html lang="fr-FR">
+
     <head>
         <title>LITRevu</title>
         <link rel="stylesheet" href="{% static 'styles.css' %}">
         {% block extra_css %}
         {% endblock %}
     </head>
+
     <body>
+
         <header>
             <div class="left-header">
                 <a href="{% url 'login' %}">
@@ -28,9 +31,11 @@
             </nav>
         </header>
         
+        <!-- Page content -->
         <div class="content">
             {% block content %}
             {% endblock %}
         </div>
+
     </body>
 </html>

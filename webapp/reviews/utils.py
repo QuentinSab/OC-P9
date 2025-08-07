@@ -7,8 +7,8 @@ def get_feed_posts(user):
     """
     Retrieve posts for the feed:
     - Include the active user + followed users
-    - Exclude blocked users
     - Also include reviews on my tickets
+    - Exclude blocked users
     """
 
     # Users to include: User + followed_user

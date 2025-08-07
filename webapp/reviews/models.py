@@ -28,6 +28,7 @@ class UserFollow(models.Model):
     followed_user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='followed_by')
 
     class Meta:
+        # Ensure a user cannot follow the same user more than once
         unique_together = ('user', 'followed_user', )
 
 
@@ -36,4 +37,5 @@ class UserBlock(models.Model):
     blocked_user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='blocked_by')
 
     class Meta:
+        # Ensure a user cannot block the same user more than once
         unique_together = ('user', 'blocked_user', )

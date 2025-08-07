@@ -8,16 +8,23 @@
 
 {% block content %}
     <h2>Mes publications</h2>
+
+    <!-- Personals posts -->
     <section>
         {% if posts %}
             {% for post in posts %}
+
+                <!-- Personnals reviews-->
                 {% if post.content_type == "review" %}
+
                     <div class="review">
+
                         <h3>Critique de {{ post.user }}</h3>
                         <p>{{ post.headline }}</p>
                         <div class="starability-result" data-rating="{{ post.rating }}" aria-label="{{ post.rating }} étoiles sur 5"></div>
                         <p>{{ post.body }}</p>
 
+                        <!-- Actions buttons -->
                         {% if post.user == request.user %}
                             <div class="button-list">
                                 <a class="button" href="{% url 'edit_review' post.id %}">Modifier</a>
@@ -25,6 +32,7 @@
                             </div>
                         {% endif %}
 
+                        <!-- Linked review ticket -->
                         <div class="ticket">
                             <h4>Ticket lié : {{ post.ticket.title }}</h4>
                             <p>{{ post.ticket.description }}</p>
@@ -35,9 +43,14 @@
                                 </div>
                             {% endif %}
                         </div>
+
                     </div>
+
+                <!-- Personnals tickets -->
                 {% elif post.content_type == "ticket" %}
+
                     <div class="ticket">
+
                         <h3>Ticket de {{ post.user }}</h3>
                         <p>{{ post.title }}</p>
                         <p>{{ post.description }}</p>
@@ -48,14 +61,18 @@
                             </div>
                         {% endif %}
 
+                        <!-- Actions buttons -->
                         {% if post.user == request.user %}
                             <div class="button-list">
                                 <a class="button" href="{% url 'edit_ticket' post.id %}">Modifier</a>
                                 <a class="button" href="{% url 'delete_ticket' post.id %}">Supprimer</a>
                             </div>
                         {% endif %}
+
                     </div>
+
                 {% endif %}
+
             {% endfor %}
         {% else %}
             <p>Aucune publication pour le moment.</p>
